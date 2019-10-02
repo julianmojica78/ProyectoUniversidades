@@ -1,0 +1,99 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <h:form id="formulario">
+            <p:outputPanel id="panel">
+                <p:accordionPanel >
+                    <p:tab title="Universidad">
+                        <h:panelGrid  id="grid" columns="2">
+                            <p:outputLabel value="Nombre de la universidad: " />
+                            <p:inputText value="#{logica.institucion.nombre}" />
+
+                            <p:outputLabel value="Extension a la que pertenecel a universidad: " />
+                            <p:inputText value="#{logica.institucion.extension}" />
+
+                            <p:outputLabel value="Escudo de la universidad: " />
+                            <p:inputText value="#{logica.institucion.escudo}" />
+
+                            <p:commandButton id="btnUni" value="Guardar Universidad"  action="#{logica.guardarUniversidad(logica.institucion)}"  />
+                        </h:panelGrid>
+                    </p:tab>
+                    <p:tab title="Diplomado">
+                        <h:panelGrid  id="gridDiplomado" columns="2">
+                            <p:outputLabel value="Nombre del Diplomado: " />
+                            <p:inputText value="#{logica.programa.nombre}" />
+
+                            <p:outputLabel value="Duracion del Diplomado: " />
+                            <p:inputText value="#{logica.programa.duracion}" />
+
+                            <p:commandButton value="Guardar Diplomado" action="#{logica.gurdarDiplomado(logica.programa)}"  />
+                        </h:panelGrid>
+                    </p:tab>
+                    <p:tab title="Estudiante">
+                        <h:panelGrid  id="gridEstudiante" columns="2">
+                            <p:outputLabel value="Nombre del Estudiante: " />
+                            <p:inputText value="#{logica.usuario.nombre}" />
+
+                            <p:outputLabel value="Cedula del Estudiante: " />
+                            <p:inputText value="#{logica.usuario.cedula}" />
+
+                            <p:commandButton value="Guardar Estudiante" action="#{logica.guardaEstudiante(logica.usuario)}"  />
+                        </h:panelGrid>
+                    </p:tab>
+                    <p:tab title="Asignacion">
+                        <h:panelGrid  id="gridAsigna" columns="6">
+                            <p:outputLabel value="Universidad: " />
+                            <p:selectOneMenu id="universidad" value="#{logica.nombreUniversidad}" >
+                                <f:selectItem itemLabel="Seleccione Universidad" itemValue="" noSelectionOption="true" />
+                                <f:selectItems value="#{logica.traerUniversidades()}" />
+                            </p:selectOneMenu>
+                            <p:outputLabel value="Diplomado: " />
+                            <p:selectOneMenu id="diplomado" value="#{logica.nombreDiplomado}" >
+                                <f:selectItem itemLabel="Seleccione Diplomado" itemValue="" noSelectionOption="true" />
+                                <f:selectItems value="#{logica.traerDiplomados()}" />
+                            </p:selectOneMenu>
+                            <p:outputLabel value="Estudiante: " />
+                            <p:selectOneMenu id="estudiante" value="#{logica.nombreEstudiante}" >
+                                <f:selectItem itemLabel="Seleccione Estudiante" itemValue="" noSelectionOption="true" />
+                                <f:selectItems value="#{logica.traerEstudiantes()}" />
+                            </p:selectOneMenu>
+                            <p:commandButton value="Asociar diplomado a universidad" action="#{logica.asociarDiplomado(logica.nombreUniversidad, logica.nombreDiplomado)}" />
+                            <p:commandButton value="Asociar estudiante a diplomado" action="#{logica.asociarEstudiante(logica.nombreDiplomado, logica.nombreEstudiante)}" />
+                        </h:panelGrid>
+                    </p:tab>
+                    <p:tab title="Desasociar">
+                        <h:panelGrid  id="gridDesa" columns="6">
+                            <p:outputLabel value="Universidad: " />
+                            <p:selectOneMenu id="universidadDes" value="#{logica.universidadNombre}" >
+                                <p:ajax listener="#{logica.cambioUniversidad(logica.universidadNombre)}" update="diplomadoDes" />
+                                <f:selectItem itemLabel="Seleccione Universidad" itemValue="" noSelectionOption="true" />
+                                <f:selectItems value="#{logica.traerUniversidades()}" />
+                            </p:selectOneMenu>
+                            <p:outputLabel value="Diplomado: " />
+                            <p:selectOneMenu id="diplomadoDes" value="#{logica.diplomadoNombre}" >
+                                <p:ajax listener="#{logica.cambioDiplomado(logica.diplomadoNombre)}" update="estudianteDes" />
+                                <f:selectItem itemLabel="Seleccione Diplomado" itemValue="" noSelectionOption="true" />
+                                <f:selectItems value="#{logica.traerDiplomadosAsociados()}" />
+                            </p:selectOneMenu>
+                            <p:outputLabel value="Estudiante: " />
+                            <p:selectOneMenu id="estudianteDes" value="#{logica.estudianteNombre}" >
+                                <f:selectItem itemLabel="Seleccione Estudiante" itemValue="" noSelectionOption="true" />
+                                <f:selectItems value="#{logica.traerEstudiantesAsociados()}" />
+                            </p:selectOneMenu>
+                            <p:commandButton value="Desasociar diplomado a universidad" action="#{logica.desasociarDiplomado(logica.diplomadoNombre, logica.universidadNombre )}" />
+                            <p:commandButton value="Desasociar estudiante a diplomado" action="#{logica.desasociarEstudiante(logicadiplomadoNombre, logica.estudianteNombre)}" />
+                        </h:panelGrid>
+                    </p:tab>
+                </p:accordionPanel>
+            </p:outputPanel>
+        </h:form>
+    </h:body>
+</html>
+

@@ -1,0 +1,14 @@
+Entity\Diplomado.class
+Entity\Diplomado_.class
+Entity\Universidad_.class
+Interfaces\AbstractFacade.class
+Persistencia\DiplomadoFacade.class
+Udec\NewSessionBean.class
+Interfaces\UniversidadFacadeLocal.class
+Interfaces\DiplomadoFacadeLocal.class
+Persistencia\EstudianteFacade.class
+Persistencia\UniversidadFacade.class
+Entity\Estudiante_.class
+Entity\Universidad.class
+Entity\Estudiante.class
+Interfaces\EstudianteFacadeLocal.class
